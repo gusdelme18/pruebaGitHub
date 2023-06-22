@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div>
+                <form [formGroup]="searchform" (ngSubmit)="searchUsers()">
+                    <div class="form-row align-items-center">
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup">Username: </label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">@</div>
+                                </div>
+                                <input formControlName="username" type="text" class="form-control"
+                                    placeholder="Username">
+                            </div>
+                            <p class="text-danger error-block"
+                                *ngIf="!this.searchform.valid && this.searchform.touched"><small>Fill in field!</small>
+                            </p>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-primary mb-2" (click)="searchUsers()"
+                                [disabled]="!this.searchform.valid">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <!--user details response-->
+    <div class="row" *ngIf="displayUserDetailContainer">
+        <div class="col-12 col-sm-6 col-lg-3" *ngFor="let user of users">
+            <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+              <!-- Team Thumb-->
+              <div class="advisor_thumb"><img [src]="user?.avatar_url" alt="{user?.name}}" (click)="sendUser(user.login)" loading="lazy">
+                <!-- Social Info-->
+                <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+              </div>
+              <!-- Team Details-->
+              <div class="single_advisor_details_info" (click)="sendUser(user.login)" >
+                <h6>{{user?.name}}</h6>
+                <p class="designation">{{user?.login}} - {{user?.id}}</p>
+              </div>
+            </div>
+          </div>
+
+    </div>
+  
